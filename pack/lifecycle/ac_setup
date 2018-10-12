@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+readonly BASEDIR=$(dirname $(dirname ${BASH_SOURCE[0]}))
+. $BASEDIR/lifecycle/common.sh
+
+readonly NODE_DIR=$BASEDIR/resources/node
+readonly NODE_TAR=$BASEDIR/resources/node-v8.9.4-linux-x64.tar.gz
+
+# rotate log
+init_log
+
+chown admin:admin /home/admin
+chown admin:admin /home/admin/logs
+
+# install node
+log_info "Install Node"
+rm -rf $NODE_DIR
+mkdir -p $NODE_DIR
+tar --strip 1 -zxvf $NODE_TAR -C $NODE_DIR 2>&1 > /dev/null || error_exit "Extract ${NODE_TAR} error"
+
+# install nginx
+if ! which nginx > /dev/null; then
+  version=$(rpm --eval '%{centos_ver}')
+  yum install -y $BASEDIR/resources/nginx-1.15.3-1.el${version}.ngx.x86_64.rpm || error_exit "install nginx error"
+  chown root:admin $(which nginx)
+  chmod +s $(which nginx)
+  # do not autostart nginx, because the deploy.js won't be able to stop/start it if it's autostarted by root.
+  chkconfig --del nginx
+fi
+
+# soft link to node
+rm /usr/local/bin/node
+ln -s $NODE_DIR/bin/node /usr/local/bin/node || error_exit "Link error"
+log_info "Link /usr/local/bin/node -> ${NODE_DIR}/bin/node"
+
+rm /usr/local/bin/npm
+ln -s $NODE_DIR/bin/npm /usr/local/bin/npm || error_exit "Link error"
+log_info "Link /usr/local/bin/npm -> ${NODE_DIR}/bin/npm"

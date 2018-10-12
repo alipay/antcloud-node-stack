@@ -1,0 +1,7 @@
+install:
+  enable: true
+  cache: true
+nginx:
+  enable: true
+  bin_path: nginx
+  conf_path: conf/nginx.conf

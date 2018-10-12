@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "start": "node server.js start",
+    "stop": "node server.js stop"
+  }
+}
