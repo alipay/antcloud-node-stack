@@ -1,0 +1,5 @@
+health_check:
+  enable: true
+  port: 7001
+  path: /healthy
+  status: 200

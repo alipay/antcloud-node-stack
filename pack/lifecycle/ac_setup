@@ -3,8 +3,10 @@
 readonly BASEDIR=$(dirname $(dirname ${BASH_SOURCE[0]}))
 . $BASEDIR/lifecycle/common.sh
 
+readonly OS_VERSION=$(rpm --eval '%{centos_ver}')
+readonly NGINX_RPM=nginx-1.15.3-1.el${OS_VERSION}.ngx.x86_64.rpm
 readonly NODE_DIR=$BASEDIR/resources/node
-readonly NODE_TAR=$BASEDIR/resources/node-v8.9.4-linux-x64.tar.gz
+readonly NODE_TAR=$BASEDIR/resources/node-v10.12.0-linux-x64.tar.gz
 
 # rotate log
 init_log
@@ -20,8 +22,7 @@ tar --strip 1 -zxvf $NODE_TAR -C $NODE_DIR 2>&1 > /dev/null || error_exit "Extra
 
 # install nginx
 if ! which nginx > /dev/null; then
-  version=$(rpm --eval '%{centos_ver}')
-  yum install -y $BASEDIR/resources/nginx-1.15.3-1.el${version}.ngx.x86_64.rpm || error_exit "install nginx error"
+  yum install -y $BASEDIR/resources/$NGINX_RPM || error_exit "install nginx error"
   chown root:admin $(which nginx)
   chmod +s $(which nginx)
   # do not autostart nginx, because the deploy.js won't be able to stop/start it if it's autostarted by root.
