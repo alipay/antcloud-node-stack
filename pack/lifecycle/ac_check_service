@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
-# do nothing
+readonly BASEDIR=$(dirname $(dirname ${BASH_SOURCE[0]}))
+. $BASEDIR/lifecycle/common.sh
+
+ulimit -u unlimited
+
+COMMAND="node $BASEDIR/lifecycle/bin/check.js $*"
+sudo "PATH=$PATH" -u admin -i $COMMAND 2>&1 | pipe_log_info >> $DEPLOY_LOGFILE || error_exit "Check service fail"
