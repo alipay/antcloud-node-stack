@@ -38,12 +38,5 @@
     "coverage",
     "dist"
   ],
-  "nyc": {
-    "check-coverage": true,
-    "statements": 91,
-    "branches": 95,
-    "functions": 77,
-    "lines": 90
-  },
   "private": true
 }
