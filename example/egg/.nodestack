@@ -1,7 +1,7 @@
 health_check:
   enable: true
   port: 7001
-  path: /100
+  path: /
   status: 200
 nginx:
   enable: true
