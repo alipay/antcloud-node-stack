@@ -10,6 +10,7 @@ const rimraf = require('mz-modules/rimraf');
 
 const checkBin = path.join(__dirname, '../bin/check.js');
 const homeDir = path.join(__dirname, 'tmp');
+const releaseDir = path.join(homeDir, 'release');
 
 describe('test/check.test.js', () => {
   let server;
@@ -17,7 +18,7 @@ describe('test/check.test.js', () => {
   beforeEach(() => {
     mm(process.env, 'HOME', homeDir);
   });
-  beforeEach(() => mkdirp(homeDir));
+  beforeEach(() => mkdirp(releaseDir));
   afterEach(() => rimraf(homeDir));
   afterEach(done => {
     server.close(done);
@@ -27,7 +28,7 @@ describe('test/check.test.js', () => {
     beforeEach(async () => {
       await fs.symlink(
         path.join(__dirname, 'fixtures/check-status'),
-        path.join(homeDir, 'release')
+        path.join(homeDir, 'release/run')
       );
     });
 
@@ -55,7 +56,7 @@ describe('test/check.test.js', () => {
     beforeEach(async () => {
       await fs.symlink(
         path.join(__dirname, 'fixtures/check-body'),
-        path.join(homeDir, 'release')
+        path.join(homeDir, 'release/run')
       );
     });
 
