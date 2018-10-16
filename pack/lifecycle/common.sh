@@ -23,7 +23,7 @@ error_exit() {
   log_error $@
   # print all log to stdout
   cat $DEPLOY_LOGFILE
-  echo "Deploy error, start to exit"
+  echo "Exit 1"
   exit 1
 }
 
