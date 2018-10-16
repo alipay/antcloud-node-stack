@@ -11,32 +11,14 @@ pack_stack:
 		&& tar -zcvf target/node.tgz -C ./tmp . \
 		&& rm -rf tmp
 
-pack_egg:
+pack_example:
 	@ mkdir -p target \
-		&& ali-egg-init --package egg-boilerplate-alipay-tiny egg \
-		&& cd egg \
-		&& tnpm install --production \
-		&& tar -zcvf ../target/egg.tgz . \
-		&& cd .. \
-		&& rm -rf egg
+	  && pushd example/egg \
+		&& npm update --registry=https://registry.npm.taobao.org --production \
+		&& popd \
+		&& tar -zcvf target/egg.tgz -C example/egg .
 
-pack_egg_install:
-	@ mkdir -p target \
-		&& ali-egg-init --package egg-boilerplate-alipay-tiny egg \
-		&& echo "install:\n  enable: true\n  cache: true" > egg/.nodestack \
-		&& sed -i '' 's/enable:\ true/enable:\ false/g' egg/config/plugin.js \
-		&& tar -zcvf target/egg-install.tgz -C egg . \
-		&& rm -rf egg
-
-pack_egg_nginx:
-	@ mkdir -p target \
-		&& ali-egg-init --package egg-boilerplate-alipay-tiny egg \
-		&& cp -R test/fixtures/package/nginx/{conf,.nodestack} egg/ \
-		&& sed -i '' 's/enable:\ true/enable:\ false/g' egg/config/plugin.js \
-		&& tar -zcvf target/egg-nginx.tgz -C egg . \
-		&& rm -rf egg
-
-pack_all: pack_stack pack_egg pack_egg_install pack_egg_nginx
+pack: pack_stack pack_example
 
 test_tgz:
 	@ tar zcvf ${PACKAGE_DIR}/nginx.tgz -C ${PACKAGE_DIR}/nginx .
