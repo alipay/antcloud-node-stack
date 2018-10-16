@@ -1,0 +1,3 @@
+nginx:
+  enable: true,
+  bin_path: 'nginx',
