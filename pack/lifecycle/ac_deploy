@@ -6,4 +6,4 @@ readonly BASEDIR=$(dirname $(dirname ${BASH_SOURCE[0]}))
 ulimit -u unlimited
 
 COMMAND="node $BASEDIR/lifecycle/bin/deploy.js $*"
-sudo "PATH=$PATH" -u admin -i $COMMAND 2>&1 | pipe_log_info >> $DEPLOY_LOGFILE || error_exit "Deploy fail"
+sudo "PATH=$PATH" -u admin -i $COMMAND 2>&1 | pipe_log_info >> $DEPLOY_LOGFILE || deploy_error_exit "Deploy fail"
