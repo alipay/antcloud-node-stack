@@ -1,0 +1,9 @@
+health_check:
+  enable: true
+  port: 7001
+  path: /
+  status: 200
+nginx:
+  enable: true
+  bin_path: 'nginx'
+  conf_path: 'conf/nginx.conf'

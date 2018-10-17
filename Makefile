@@ -14,9 +14,14 @@ pack_stack:
 pack_example:
 	@ mkdir -p target \
 	  && pushd example/egg \
-		&& npm update --registry=https://registry.npm.taobao.org --production \
+		&& npm update --registry=https://registry.npm.taobao.org --production --no-package-lock \
 		&& popd \
 		&& tar -zcvf target/egg.tgz -C example/egg .
+	@ mkdir -p target \
+	  && pushd example/koa \
+		&& npm update --registry=https://registry.npm.taobao.org --production --no-package-lock \
+		&& popd \
+		&& tar -zcvf target/koa.tgz -C example/koa .
 
 pack: pack_stack pack_example
 
