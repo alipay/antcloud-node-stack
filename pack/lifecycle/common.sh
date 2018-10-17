@@ -21,9 +21,13 @@ pipe_log_info() {
 
 error_exit() {
   log_error $@
+  exit 1
+}
+
+deploy_error_exit() {
+  log_error $@
   # print all log to stdout
   cat $DEPLOY_LOGFILE
-  echo "Exit 1"
   exit 1
 }
 
