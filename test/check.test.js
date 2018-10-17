@@ -21,7 +21,11 @@ describe('test/check.test.js', () => {
   beforeEach(() => mkdirp(releaseDir));
   afterEach(() => rimraf(homeDir));
   afterEach(done => {
-    server.close(done);
+    if (!server) done();
+    server.close(() => {
+      server = null;
+      done();
+    });
   });
 
   describe('check status', () => {
@@ -76,6 +80,24 @@ describe('test/check.test.js', () => {
       await coffee.fork(checkBin)
         .debug()
         .expect('stdout', /Request http:\/\/127.0.0.1:7001\/healthy for health check/)
+        .expect('code', 1)
+        .end();
+    });
+
+  });
+
+  describe('check without listen', () => {
+    beforeEach(async () => {
+      await fs.symlink(
+        path.join(__dirname, 'fixtures/check-unlisten'),
+        path.join(homeDir, 'release/run')
+      );
+    });
+
+    it('should fail', async () => {
+      await coffee.fork(checkBin)
+        .debug()
+        .expect('stdout', /Request http:\/\/127.0.0.1:7002\/healthy for health check/)
         .expect('code', 1)
         .end();
     });
