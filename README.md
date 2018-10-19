@@ -1,12 +1,12 @@
-# [蚂蚁金融云](https://tech.antfin.com)官方 Node 技术栈脚本
+# [蚂蚁金融科技](https://tech.antfin.com)官方 Node 技术栈脚本
 
-根据[蚂蚁金融云技术栈文档](https://tech.antfin.com/docs/2/61282)创建 Node 技术栈脚本，支持 Node 应用部署。
+根据[蚂蚁金融科技技术栈文档](https://tech.antfin.com/docs/2/61282)创建 Node 技术栈脚本，支持 Node 应用部署。
 
 内置 Node10 和 Nginx 1.15，也可基于开源版本定制自己的脚本。
 
 ## 接入流程
 
-此技术栈已经成为金融云的系统技术栈，所以在创建应用的时候选择即可。创建应用时[根据文档](https://tech.antfin.com/docs/2/59050#h2-u521Bu5EFAu5E94u752844)选择 NodeJS 技术栈即可。
+此技术栈是系统技术栈，所以在创建应用的时候选择即可。创建应用时[根据文档](https://tech.antfin.com/docs/2/59050#h2-u521Bu5EFAu5E94u752844)选择 NodeJS 技术栈即可。
 
 ## 如何使用
 
