@@ -4,10 +4,10 @@ pack_stack:
 	@ mkdir -p target tmp \
 		&& cp -R pack/* tmp \
 		&& cp -R package.json bin lib tmp/lifecycle \
-		&& cd tmp/lifecycle \
-		&& tnpm install --production \
+		&& pushd tmp/lifecycle \
+		&& npm update --registry=https://registry.npm.taobao.org --production --no-package-lock \
 		&& ../../node_modules/.bin/node-prune \
-		&& cd ../.. \
+		&& popd \
 		&& tar -zcvf target/node.tgz -C ./tmp . \
 		&& rm -rf tmp
 
