@@ -5,7 +5,7 @@ pack_stack:
 		&& cp -R pack/* tmp \
 		&& cp -R package.json bin lib tmp/lifecycle \
 		&& pushd tmp/lifecycle \
-		&& npm update --registry=https://registry.npm.taobao.org --production --no-package-lock \
+		&& npm update --registry=https://registry.npmmirror.com --production --no-package-lock \
 		&& ../../node_modules/.bin/node-prune \
 		&& popd \
 		&& tar -zcvf target/node.tgz -C ./tmp . \
@@ -14,12 +14,12 @@ pack_stack:
 pack_example:
 	@ mkdir -p target \
 	  && pushd example/egg \
-		&& npm update --registry=https://registry.npm.taobao.org --production --no-package-lock \
+		&& npm update --registry=https://registry.npmmirror.com --production --no-package-lock \
 		&& popd \
 		&& tar -zcvf target/egg.tgz -C example/egg .
 	@ mkdir -p target \
 	  && pushd example/koa \
-		&& npm update --registry=https://registry.npm.taobao.org --production --no-package-lock \
+		&& npm update --registry=https://registry.npmmirror.com --production --no-package-lock \
 		&& popd \
 		&& tar -zcvf target/koa.tgz -C example/koa .
 
